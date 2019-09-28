@@ -51,22 +51,22 @@ int db_query()
 
       nontransaction N(C);
 
-      result R(N.exec(sql_login));
+      result R = (N.exec(sql_login));
       int i =0;
       for (result::const_iterator c = R.begin(); c != R.end(); ++c)
       {  
          ld[i].userid=to_string(c[0]);
          ld[i].password =to_string(c[1]);
-         ld[i].email =to_string(c[2]);
-         cout << c[0] << c[1] << c[2] << endl;
+         ld[i].email =to_string(c[3]);
+        // cout << c[0] << c[1] << c[2] << endl;
 
       }
 
       sql_organization = "SELECT * from organization";
 
-      nontransaction N(C);
+     // nontransaction N(C);
 
-      result S(N.exec(sql_organization));
+        R = (N.exec(sql_organization));
       
       for (result::const_iterator c = R.begin(); c != R.end(); ++c)
       {  
@@ -75,15 +75,15 @@ int db_query()
          od[i].location =to_string(c[3]);
          od[i].parent =to_string(c[4]);
          od[i].type =to_string(c[5]);
-         cout << c[0] << c[1] << c[2] << c[3]<<c[4] <<c[5]<< endl;
+        // cout << c[0] << c[1] << c[2] << c[3]<<c[4] <<c[5]<< endl;
       }
 
 
       sql_profile = "SELECT * from profile";
 
-      nontransaction N(C);
+     // nontransaction N(C);
 
-      result R(N.exec(sql_profile));
+      R = (N.exec(sql_profile));
 
       for (result::const_iterator c = R.begin(); c != R.end(); ++c)
       {  
@@ -98,15 +98,14 @@ int db_query()
          pd[i].country =to_string(c[6]);
          pd[i].phone =to_string(c[8]);
 
-         cout << c[0] << c[1] << c[2] << c[3]<<c[4] <<c[5]<<c[6]<<c[7]<<c[8]<< endl;
+        // cout << c[0] << c[1] << c[2] << c[3]<<c[4] <<c[5]<<c[6]<<c[7]<<c[8]<< endl;
       }
-
 
          sql_account = "SELECT * from account";
 
-      nontransaction N(C);
+      //nontransaction N(C);
 
-      result R(N.exec(sql_account));
+      R = (N.exec(sql_account));
 
       for (result::const_iterator c = R.begin(); c != R.end(); ++c)
       {  
@@ -116,7 +115,7 @@ int db_query()
          ad[i].equity =to_string(c[4]);
          ad[i].balance =to_string(c[5]);
 
-         cout << c[0] << c[1] << c[2] << c[3]<<c[4] <<c[5]<< endl;
+        // cout << c[0] << c[1] << c[2] << c[3]<<c[4] <<c[5]<< endl;
       }
 
       C.disconnect();
@@ -131,5 +130,7 @@ int db_query()
 int main(int argc, char *argv[])
 {
    db_query();
+
+   cout<<ld[0].email;
    return 0;
 }
